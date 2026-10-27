@@ -122,11 +122,9 @@
       ? ['Saudi coffee with the spirit of hospitality', 'The true taste is Musafarra', 'Cardamom · Saffron · Clove', 'From the majlis to your cup', 'Hospitality worthy of your guests']
       : ['قهوة سعودية بروح الضيافة', 'أصل الكيف مزعفر', 'هيل · زعفران · قرنفل', 'من المجلس إلى فنجانك', 'ضيافة تليق بضيوفك'];
 
-    /* زهرة الزعفران من شعار مزعفره كفاصل بين العبارات */
-    var flower = '<svg class="mz-mq-flower" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor">' +
-      '<path d="M50 8C60 22 62 40 50 62 38 40 40 22 50 8Z"/><path d="M50 62C40 50 28 34 32 22 42 28 48 44 50 62Z"/>' +
-      '<path d="M50 62C60 50 72 34 68 22 58 28 52 44 50 62Z"/><path d="M50 66C36 64 18 56 10 40 24 40 40 48 50 66Z"/>' +
-      '<path d="M50 66C64 64 82 56 90 40 76 40 60 48 50 66Z"/><path d="M50 66 46 74 50 82 54 74Z"/></g></svg>';
+    /* زهرة الزعفران من شعار مزعفره الرسمي كفاصل بين العبارات (قناع يُلوَّن بـ CSS) */
+    var FLOWER = 'https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@75e9223/brand/flower-mask.png';
+    var flower = '<span class="mz-mq-flower" aria-hidden="true"></span>';
 
     var group = '';
     for (var i = 0; i < items.length; i++) {
@@ -148,13 +146,14 @@
       '#mz-marquee:hover .mz-mq-track{animation-play-state:paused}' +
       '#mz-marquee .mz-mq-group{display:flex;align-items:center;gap:28px;padding-inline-end:28px;flex-shrink:0}' +
       '#mz-marquee .mz-mq-item{direction:' + (isEn ? 'ltr' : 'rtl') + ';white-space:nowrap;font-size:clamp(17px,1.7vw,22px);font-weight:700;letter-spacing:.01em}' +
-      '#mz-marquee .mz-mq-flower{width:26px;height:26px;color:#C9A478;flex-shrink:0}' +
-      '#mz-marquee .mz-mq-group > .mz-mq-flower:nth-of-type(even){color:#A6592E}' +
+      '#mz-marquee .mz-mq-flower{display:inline-block;width:32px;height:29px;flex-shrink:0;background-color:#C9A478;' +
+        '-webkit-mask:url("' + FLOWER + '") center/contain no-repeat;mask:url("' + FLOWER + '") center/contain no-repeat}' +
+      '#mz-marquee .mz-mq-group > .mz-mq-flower:nth-of-type(4n){background-color:#F4D7B8}' +
       (isEn
         ? '@keyframes mzMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}'
         : '@keyframes mzMarquee{from{transform:translateX(-50%)}to{transform:translateX(0)}}') +
       '@media (max-width:767px){#mz-marquee{padding:12px 0}#mz-marquee .mz-mq-track{padding:13px 0;animation-duration:30s}' +
-        '#mz-marquee .mz-mq-group{gap:20px;padding-inline-end:20px}#mz-marquee .mz-mq-flower{width:22px;height:22px}}' +
+        '#mz-marquee .mz-mq-group{gap:20px;padding-inline-end:20px}#mz-marquee .mz-mq-flower{width:26px;height:24px}}' +
       '@media (prefers-reduced-motion:reduce){#mz-marquee .mz-mq-track{animation:none;transform:none}}';
     document.head.appendChild(css);
 
