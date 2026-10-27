@@ -43,8 +43,9 @@
       '#mz-hero .mz-toggle:hover,#mz-hero .mz-toggle:focus-visible{opacity:1}' +
       '#mz-hero .mz-toggle:focus-visible,#mz-hero .mz-link:focus-visible{outline:3px solid #C9A478;outline-offset:-3px}' +
       /* الهيدر فوق الفيديو على سطح المكتب فقط */
+      'body.mz-hero-overlay header.store-header{position:relative;z-index:20}' +
       '@media (min-width:768px){' +
-        'body.mz-hero-overlay header.store-header{position:relative;z-index:20;' +
+        'body.mz-hero-overlay header.store-header{' +
           'background:linear-gradient(180deg,rgba(251,241,229,.95) 0%,rgba(251,241,229,.75) 55%,rgba(251,241,229,0) 100%)!important}' +
         'body.mz-hero-overlay header.store-header .top-navbar,' +
         'body.mz-hero-overlay header.store-header #mainnav{background:transparent!important;box-shadow:none!important}' +
@@ -57,13 +58,17 @@
     hero.style.backgroundImage = 'url("' + poster + '")';
     hero.innerHTML = '<a class="mz-link" href="' + shopHref + '" aria-label="' + label + '"></a>';
 
-    var overlay = !isMobile && header && header.parentNode;
-    if (overlay) {
+    if (header && header.parentNode) {
+      /* الفيديو بعد الهيدر مباشرة؛ على سطح المكتب يُسحب للأعلى ليصبح الهيدر فوقه */
       header.parentNode.insertBefore(hero, header.nextSibling);
       document.body.classList.add('mz-hero-overlay');
-      var fit = function () { hero.style.marginTop = (-header.offsetHeight) + 'px'; };
+      var desk = window.matchMedia('(min-width: 768px)');
+      var fit = function () {
+        hero.style.marginTop = desk.matches ? (-header.offsetHeight) + 'px' : '0px';
+      };
       fit();
       window.addEventListener('resize', fit);
+      if (desk.addEventListener) desk.addEventListener('change', fit);
       if ('ResizeObserver' in window) new ResizeObserver(fit).observe(header);
     } else {
       anchor.parentNode.insertBefore(hero, anchor);
