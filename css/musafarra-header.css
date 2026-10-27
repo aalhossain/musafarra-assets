@@ -1,0 +1,88 @@
+/* =========================================================
+   مزعفره — تحسين محتويات الهيدر (ثيم رائد)
+   يُلصق في نهاية خانة CSS بعد كود الهوية والهيدر الزجاجي
+   ========================================================= */
+
+/* ---------- الشعار ---------- */
+#mainnav .navbar-brand img{ max-height:58px; width:auto; transition:max-height .3s ease; }
+#mainnav.fixed-pinned .navbar-brand img{ max-height:44px; }
+
+/* ---------- روابط القائمة الرئيسية (سطح المكتب) ---------- */
+@media (min-width:1024px){
+  #mainnav .main-menu > li.root-level{ margin-inline:6px; }
+  #mainnav .main-menu > li.root-level > a{
+    position:relative;
+    color:var(--mz-olive) !important;
+    font-size:16px; font-weight:600;
+    padding-inline:12px;
+    transition:color .2s ease;
+  }
+  /* خط تيراكوتا ينمو من المنتصف عند المرور، ومعيّن نجدي صغير فوقه */
+  #mainnav .main-menu > li.root-level > a::after{
+    content:""; position:absolute; inset-inline:12px; bottom:14px; height:2px;
+    background:var(--mz-terra); border-radius:2px;
+    transform:scaleX(0); transition:transform .3s ease;
+  }
+  #mainnav .main-menu > li.root-level > a::before{
+    content:""; position:absolute; left:50%; bottom:11px; width:7px; height:7px;
+    background:var(--mz-terra); transform:translateX(-50%) rotate(45deg) scale(0);
+    transition:transform .3s ease .05s;
+  }
+  #mainnav .main-menu > li.root-level > a:hover,
+  #mainnav .main-menu > li.root-level > a[aria-current="page"]{ color:var(--mz-terra) !important; }
+  #mainnav .main-menu > li.root-level > a:hover::after,
+  #mainnav .main-menu > li.root-level > a[aria-current="page"]::after{ transform:scaleX(1); }
+  #mainnav .main-menu > li.root-level > a:hover::before,
+  #mainnav .main-menu > li.root-level > a[aria-current="page"]::before{ transform:translateX(-50%) rotate(45deg) scale(1); }
+}
+
+/* ---------- أيقونات الحساب والسلة ---------- */
+#mainnav .s-user-menu-login-btn,
+#mainnav #s-cart-icon{
+  width:44px !important; height:44px !important;
+  border:1px solid rgba(53,59,26,.28) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.35) !important;
+  color:var(--mz-olive) !important;
+  display:inline-flex; align-items:center; justify-content:center;
+  transition:background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+#mainnav .s-user-menu-login-btn svg,
+#mainnav #s-cart-icon svg{ fill:currentColor; }
+#mainnav .s-user-menu-login-btn:hover,
+#mainnav .s-cart-summary-wrapper:hover #s-cart-icon{
+  background:var(--mz-olive) !important;
+  border-color:var(--mz-olive) !important;
+  color:var(--mz-cream) !important;
+}
+#mainnav .s-cart-summary-wrapper:hover #s-cart-icon *{ color:var(--mz-cream) !important; fill:var(--mz-cream) !important; }
+
+/* عدّاد السلة: تيراكوتا بدل الأحمر */
+#mainnav .s-cart-summary-count{
+  background:var(--mz-terra) !important;
+  color:var(--mz-cream) !important;
+  border:2px solid var(--mz-ivory);
+  font-weight:700;
+}
+/* إجمالي السلة */
+#mainnav .s-cart-summary-total{ color:var(--mz-olive) !important; font-weight:700; }
+
+/* أيقونة القائمة في الجوال */
+#mainnav .mburger i{ color:var(--mz-olive) !important; }
+
+/* ---------- الشريط العلوي (البحث واللغة والروابط) ---------- */
+.top-navbar .s-search-input-wrapper,
+.top-navbar .s-search-input{
+  background:rgba(255,255,255,.6) !important;
+  border-color:rgba(53,59,26,.18) !important;
+  border-radius:999px !important;
+}
+.top-navbar .s-localization-modal-trigger-btn{
+  border-radius:999px !important;
+  color:var(--mz-olive) !important;
+}
+.top-navbar .s-menu-topnav-item{ color:var(--mz-olive) !important; font-weight:500; }
+.top-navbar .s-menu-topnav-item:hover{ color:var(--mz-terra) !important; }
+
+/* إخفاء بريد Gmail مؤقتاً حتى يُنشأ بريد على نطاق المتجر */
+.top-navbar .s-contacts-header{ display:none !important; }

@@ -1,0 +1,28 @@
+/* =========================================================
+   مزعفره — الهيدر الثابت بتأثير زجاجي (ثيم رائد)
+   يعمل عند تفعيل «تثبيت القائمة» من إعدادات الثيم
+   يُلصق في نهاية خانة CSS بعد كود الهوية
+   ========================================================= */
+#mainnav.main-nav-container.fixed-pinned .inner{
+  background:rgba(251,241,229,.58) !important;          /* عاجي شفاف */
+  -webkit-backdrop-filter:blur(18px) saturate(170%);
+          backdrop-filter:blur(18px) saturate(170%);
+  border-bottom:1px solid rgba(201,164,120,.45);
+  box-shadow:0 10px 30px -14px rgba(53,59,26,.35) !important;
+  transition:background-color .3s ease, box-shadow .3s ease;
+}
+/* خط النقش النجدي أسفل الهيدر الزجاجي */
+#mainnav.main-nav-container.fixed-pinned .inner::after{
+  content:""; position:absolute; inset-inline:0; bottom:-1px; height:10px; pointer-events:none;
+  background:var(--mz-najdi) repeat-x center/auto 10px;
+  opacity:.45;
+}
+/* نصوص وأيقونات الهيدر الزجاجي بلون الهوية */
+#mainnav.main-nav-container.fixed-pinned .inner a,
+#mainnav.main-nav-container.fixed-pinned .inner button,
+#mainnav.main-nav-container.fixed-pinned .inner i{ color:var(--mz-olive); }
+
+/* المتصفحات التي لا تدعم التمويه: خلفية شبه معتمة بدل الزجاج */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  #mainnav.main-nav-container.fixed-pinned .inner{ background:rgba(251,241,229,.96) !important; }
+}

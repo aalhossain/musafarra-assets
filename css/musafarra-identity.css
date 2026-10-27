@@ -1,0 +1,139 @@
+/* =========================================================
+   مزعفره — هوية المتجر (ثيم رائد) — الإصدار 1
+   الألوان من دليل الهوية البصرية
+   ========================================================= */
+:root{
+  --mz-olive:#353B1A;
+  --mz-olive-deep:#23270F;
+  --mz-moss:#4A4D2C;
+  --mz-cream:#F4D7B8;
+  --mz-ivory:#FBF1E5;
+  --mz-sand:#C9A478;
+  --mz-terra:#A6592E;
+  --mz-roast:#4A2B1C;
+  --mz-radius:20px;
+  --mz-najdi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='22' viewBox='0 0 40 22'%3E%3Cg fill='none' stroke='%23A6592E' stroke-width='1.5'%3E%3Cpath d='M4 5l12 12M16 5L4 17'/%3E%3Crect x='24' y='6' width='10' height='10' transform='rotate(45 29 11)'/%3E%3C/g%3E%3Ccircle cx='29' cy='11' r='2' fill='%23A6592E'/%3E%3C/svg%3E");
+}
+
+/* ---------- الخلفية العامة ---------- */
+body.theme-raed{ background-color:var(--mz-ivory); }
+
+/* ---------- الشريط الترويجي أعلى المتجر ---------- */
+.s-advertisement{
+  background-color:var(--mz-roast) !important;
+  color:var(--mz-cream) !important;
+}
+.s-advertisement *{ color:var(--mz-cream) !important; }
+
+/* ---------- الهيدر ---------- */
+.store-header .top-navbar,
+#mainnav.main-nav-container{
+  background-color:var(--mz-ivory) !important;
+  box-shadow:none !important;
+}
+#mainnav.main-nav-container{ position:relative; }
+#mainnav.main-nav-container::after{
+  content:""; position:absolute; inset-inline:0; bottom:-12px; height:12px;
+  background:var(--mz-najdi) repeat-x center/auto 12px;
+  opacity:.55; pointer-events:none;
+}
+.store-header a,
+.store-header .top-navbar,
+.store-header .top-navbar *{ color:var(--mz-olive); }
+
+/* ---------- البنرات العريضة ---------- */
+.s-block--fixed-banner a,
+.s-block--fixed-banner img{ border-radius:24px; }
+.s-block--fixed-banner a{ display:block; overflow:hidden; }
+.s-block--fixed-banner img{ transition:transform .8s ease; }
+.s-block--fixed-banner a:hover img{ transform:scale(1.03); }
+
+/* ---------- عناوين الأقسام ---------- */
+.s-slider-block__title h2,
+.s-block h2{
+  color:var(--mz-olive) !important;
+  font-weight:700;
+}
+.s-slider-block__title h2::after{
+  content:""; display:block; width:84px; height:12px; margin-top:8px;
+  background:var(--mz-najdi) repeat-x center/auto 12px;
+}
+
+/* ---------- بطاقات المنتجات ---------- */
+.s-product-card-entry{
+  background:#fff !important;
+  border-radius:var(--mz-radius) !important;
+  border:1px solid #EFE0CC !important;
+  overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease;
+  box-shadow:0 10px 30px -22px rgba(53,59,26,.45);
+}
+.s-product-card-entry:hover{
+  transform:perspective(900px) rotateX(3deg) translateY(-6px);
+  box-shadow:0 28px 46px -26px rgba(53,59,26,.6);
+}
+.s-product-card-image{ background:#F7E6D3; }
+.s-product-card-image-cover{ transition:transform .6s ease; }
+.s-product-card-entry:hover .s-product-card-image-cover{ transform:scale(1.05); }
+.s-product-card-content-title a{ color:var(--mz-olive) !important; font-weight:700; }
+.s-product-card-price{ color:var(--mz-terra) !important; font-weight:700; }
+.s-product-card-promotion-title{
+  background:var(--mz-terra) !important;
+  color:var(--mz-cream) !important;
+  border-radius:999px !important;
+  padding:4px 12px !important;
+  font-weight:500;
+}
+
+/* ---------- الأزرار ---------- */
+.s-button-primary,
+.s-product-card-content-footer .s-button-element{
+  border-radius:999px !important;
+  background-color:var(--mz-olive) !important;
+  border-color:var(--mz-olive) !important;
+  color:var(--mz-cream) !important;
+  transition:background-color .25s ease, transform .2s ease;
+}
+.s-button-primary:hover,
+.s-product-card-content-footer .s-button-element:hover{
+  background-color:var(--mz-terra) !important;
+  border-color:var(--mz-terra) !important;
+  transform:translateY(-2px);
+}
+
+/* ---------- آراء العملاء ---------- */
+.s-block--testimonials{
+  background:var(--mz-cream);
+  border-radius:32px;
+  padding-block:48px !important;
+  margin-block:48px;
+}
+
+/* ---------- التذييل ---------- */
+footer.store-footer{
+  background-color:var(--mz-olive) !important;
+  color:var(--mz-cream) !important;
+  position:relative;
+  margin-top:110px;
+}
+footer.store-footer::before{
+  content:""; position:absolute; inset-inline:0; top:-90px; height:90px; pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'%3E%3Cpath d='M0 30 C300 80 640 70 900 52 C1160 36 1300 14 1440 22 L1440 90 L0 90Z' fill='%23A6592E'/%3E%3Cpath d='M0 55 C320 92 660 84 940 72 C1180 62 1320 46 1440 48 L1440 90 L0 90Z' fill='%23C9A478'/%3E%3Cpath d='M0 76 C340 98 700 92 960 85 C1200 80 1330 70 1440 70 L1440 90 L0 90Z' fill='%23353B1A'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+}
+footer.store-footer .store-footer__inner{ background:transparent !important; }
+footer.store-footer h3,
+footer.store-footer h4,
+footer.store-footer p,
+footer.store-footer span,
+footer.store-footer li,
+footer.store-footer a{ color:var(--mz-cream) !important; }
+footer.store-footer a:hover{ color:var(--mz-sand) !important; }
+footer.store-footer .copyright-text{ color:var(--mz-sand) !important; }
+
+/* ---------- احترام إعداد «تقليل الحركة» ---------- */
+@media (prefers-reduced-motion: reduce){
+  .s-product-card-entry,
+  .s-product-card-entry:hover,
+  .s-product-card-image-cover,
+  .s-block--fixed-banner img{ transition:none !important; transform:none !important; }
+}
