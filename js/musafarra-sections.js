@@ -149,17 +149,38 @@
     document.head.appendChild(st);
   }
 
-  function readProducts() {
+  function cardProducts() {
     return [].slice.call(document.querySelectorAll('custom-salla-product-card')).map(function (c) {
       var a = c.querySelector('.s-product-card-content-title a');
       var img = c.querySelector('.s-product-card-image-cover');
       var price = c.querySelector('.s-product-card-price');
-      return {
-        id: c.id, name: a ? a.textContent.trim() : '', href: a ? a.href : '#',
+      return { id: c.id, name: a ? a.textContent.trim() : '', href: a ? a.href : '#',
         img: img ? (img.currentSrc || img.src) : '', price: price ? price.textContent.replace(/\s+/g, ' ').trim() : '',
-        oos: c.classList.contains('s-product-card-out-of-stock')
-      };
+        oos: c.classList.contains('s-product-card-out-of-stock') };
     }).filter(function (p) { return p.name; });
+  }
+
+  /* المنتجات من واجهة سلة (لا تعتمد على رسم البطاقات)، مع بطاقات الصفحة كبديل */
+  function loadProducts(isEn) {
+    var ids = [];
+    [].forEach.call(document.querySelectorAll('salla-products-list[source-value]'), function (l) {
+      try { JSON.parse(l.getAttribute('source-value')).forEach(function (id) { if (ids.indexOf(id) < 0) ids.push(id); }); } catch (e) {}
+    });
+    [].forEach.call(document.querySelectorAll('custom-salla-product-card[id]'), function (c) { var n = +c.id; if (n && ids.indexOf(n) < 0) ids.push(n); });
+    var api = window.salla && salla.api && salla.api.product;
+    if (!ids.length || !api || !api.getDetails) return Promise.resolve(cardProducts());
+    var fmt = function (n) { try { return Number(n).toLocaleString(isEn ? 'en-US' : 'ar-SA'); } catch (e) { return String(n); } };
+    return Promise.all(ids.slice(0, 8).map(function (id) {
+      return Promise.resolve(api.getDetails(id)).then(function (r) {
+        var d = (r && r.data) || r || {};
+        var price = d.is_on_sale && d.sale_price ? d.sale_price : d.price;
+        return { id: d.id || id, name: d.name || '', href: d.url || '#', img: (d.image && d.image.url) || '',
+          price: price != null ? fmt(price) : '', oos: d.is_available === false || d.is_out_of_stock === true };
+      }).catch(function () { return null; });
+    })).then(function (list) {
+      list = list.filter(function (p) { return p && p.name; });
+      return list.length ? list : cardProducts();
+    });
   }
 
   function trustHTML(t) {
@@ -257,33 +278,40 @@
     var trust = el('section', 'mz-trust', 'mz-sec', trustHTML(t));
     if (marquee) after(marquee, trust); else if (hero) after(hero, trust); else if (banners[0]) before(banners[0], trust);
 
-    /* 2) «وش كيفك؟»: قبل قسم المنتجات */
-    var finder = buildFinder(t, readProducts());
-    if (finder) { if (productsSec) before(productsSec, finder); else if (banners[0]) after(banners[0], finder); }
+    /* 2) «وش كيفك؟»: قبل قسم المنتجات (تُحمَّل بياناته من سلة) */
+    var finderSlot = document.createElement('div');
+    if (productsSec) before(productsSec, finderSlot); else if (banners[0]) after(banners[0], finderSlot);
+    loadProducts(isEn).then(function (products) {
+      var finder = buildFinder(t, products);
+      if (finder && finderSlot.parentNode) { finderSlot.parentNode.replaceChild(finder, finderSlot); observe(finder.querySelectorAll('.mz-reveal')); }
+    });
 
-    /* 3) من المجلس إلى فنجانك + 4) طريقة التحضير: بعد آخر بانر (أو بعد المنتجات) */
-    var anchor = banners.length ? banners[banners.length - 1] : productsSec;
+    /* 3) من المجلس إلى فنجانك + 4) طريقة التحضير: بعد المنتجات (أو بعد آخر بانر) */
+    var anchor = productsSec || (banners.length ? banners[banners.length - 1] : null);
     if (anchor) {
       var story = el('section', 'mz-story', 'mz-sec', storyHTML(t));
       var brew = el('section', 'mz-brew', '', brewHTML(t));
       after(anchor, story); after(story, brew);
     }
 
-    /* ظهور تدريجي عند الوصول */
-    var items = document.querySelectorAll('.mz-reveal');
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('mz-in'); io.unobserve(e.target); } });
-      }, { threshold: 0.15 });
-      [].forEach.call(items, function (n, i) { n.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(n); });
-    } else { [].forEach.call(items, function (n) { n.classList.add('mz-in'); }); }
+    observe(document.querySelectorAll('.mz-reveal'));
   }
 
-  /* قوائم المنتجات تُرسم بعد التحميل؛ ننتظرها قليلاً قبل بناء «وش كيفك؟» */
+  /* ظهور تدريجي عند الوصول */
+  var io = null;
+  function observe(items) {
+    if (!('IntersectionObserver' in window)) { [].forEach.call(items, function (n) { n.classList.add('mz-in'); }); return; }
+    if (!io) io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('mz-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    [].forEach.call(items, function (n, i) { n.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(n); });
+  }
+
+  /* ننتظر جاهزية مكتبة سلة (حتى 6 ثوانٍ) ثم نبني الأقسام */
   function start() {
     var tries = 0;
     (function wait() {
-      if (document.querySelector('custom-salla-product-card .s-product-card-content-title a') || tries++ > 40) init();
+      if ((window.salla && salla.api && salla.api.product) || tries++ > 40) init();
       else setTimeout(wait, 150);
     })();
   }
