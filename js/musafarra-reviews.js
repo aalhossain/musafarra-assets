@@ -45,6 +45,11 @@
       '#mz-reviews .mz-rv-stars svg{width:18px;height:18px;fill:#C9A478}' +
       '#mz-reviews .mz-rv-stars svg.on{fill:#A6592E}' +
       '#mz-reviews .mz-rv-text{margin:0 0 22px;font-size:18px;line-height:1.85;font-weight:600;color:#353B1A;flex:1}' +
+      '#mz-reviews .mz-rv-rate{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;margin-bottom:22px}' +
+      '#mz-reviews .mz-rv-stars--big{margin:0}#mz-reviews .mz-rv-stars--big svg{width:26px;height:26px}' +
+      '#mz-reviews .mz-rv-score{font-size:44px;font-weight:800;line-height:1.1;color:#353B1A}#mz-reviews .mz-rv-score small{font-size:18px;color:#A6592E;font-weight:700}' +
+      '#mz-reviews .mz-rv-rated{font-size:14px;font-weight:600;color:#4A4D2C}' +
+      '#mz-reviews .mz-rv-card--rate{background:#fff}' +
       '#mz-reviews .mz-rv-who{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px dashed rgba(166,89,46,.35)}' +
       '#mz-reviews .mz-rv-av{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;' +
         'background:#353B1A;color:#F4D7B8;font-weight:800;font-size:19px;overflow:hidden;border:2px solid #C9A478}' +
@@ -74,7 +79,7 @@
       var n = t.querySelector('.s-reviews-testimonial__info h2');
       var text = p ? p.textContent.trim() : '';
       var name = n ? n.textContent.trim() : '';
-      if (!text || !name) return;
+      if (!name) return;
       var stars = t.querySelectorAll('.s-rating-stars-selected').length || 5;
       var img = t.querySelector('.s-reviews-testimonial__avatar img');
       var src = img ? (img.getAttribute('data-src') || img.getAttribute('src') || '') : '';
@@ -83,14 +88,15 @@
       if (out.some(function (o) { return o.key === key; })) return;
       out.push({ key: key, text: text, name: name, stars: Math.min(5, stars), img: src });
     });
-    return out;
+    /* الآراء المكتوبة أولاً، ثم التقييمات بالنجوم فقط */
+    return out.filter(function (o) { return o.text; }).concat(out.filter(function (o) { return !o.text; }));
   }
 
   function build(block, host, list) {
     var isEn = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
     var T = isEn
-      ? { kicker: 'FROM OUR GUESTS', title: 'What our guests say', all: 'All reviews', tag: 'Musafarra customer', prev: 'Previous', next: 'Next', stars: ' out of 5 stars' }
-      : { kicker: 'من ضيوفنا', title: 'وش قالوا عن مزعفره؟', all: 'كل الآراء', tag: 'عميل مزعفره', prev: 'السابق', next: 'التالي', stars: ' من 5 نجوم' };
+      ? { kicker: 'FROM OUR GUESTS', title: 'What our guests say', all: 'All reviews', tag: 'Musafarra customer', prev: 'Previous', next: 'Next', stars: ' out of 5 stars', rated: function (n) { return 'Rated Musafarra ' + n + ' out of 5'; } }
+      : { kicker: 'من ضيوفنا', title: 'وش قالوا عن مزعفره؟', all: 'كل الآراء', tag: 'عميل مزعفره', prev: 'السابق', next: 'التالي', stars: ' من 5 نجوم', rated: function (n) { return 'قيّم مزعفره ' + n + ' من 5'; } };
     var allLink = host.querySelector('.s-reviews-display-all');
     var allHref = (allLink && allLink.getAttribute('href')) || (isEn ? '/en/testimonials' : '/ar/testimonials');
 
@@ -98,9 +104,11 @@
       var st = '';
       for (var i = 1; i <= 5; i++) st += STAR.replace('<svg', '<svg class="' + (i <= r.stars ? 'on' : '') + '"');
       var av = r.img ? '<img src="' + esc(r.img) + '" alt="" loading="lazy">' : esc(r.name.charAt(0));
-      return '<article class="mz-rv-card">' + QUOTE.replace('<svg', '<svg class="mz-rv-quote"') +
-        '<div class="mz-rv-stars" role="img" aria-label="' + r.stars + T.stars + '">' + st + '</div>' +
-        '<p class="mz-rv-text">' + esc(r.text) + '</p>' +
+      var body = r.text
+        ? '<div class="mz-rv-stars" role="img" aria-label="' + r.stars + T.stars + '">' + st + '</div><p class="mz-rv-text">' + esc(r.text) + '</p>'
+        : '<div class="mz-rv-rate"><div class="mz-rv-stars mz-rv-stars--big" role="img" aria-label="' + r.stars + T.stars + '">' + st + '</div>' +
+          '<span class="mz-rv-score">' + r.stars + '<small>/5</small></span><span class="mz-rv-rated">' + T.rated(r.stars) + '</span></div>';
+      return '<article class="mz-rv-card' + (r.text ? '' : ' mz-rv-card--rate') + '">' + (r.text ? QUOTE.replace('<svg', '<svg class="mz-rv-quote"') : '') + body +
         '<div class="mz-rv-who"><span class="mz-rv-av" aria-hidden="true">' + av + '</span>' +
         '<span><span class="mz-rv-name">' + esc(r.name) + '</span><span class="mz-rv-tag">' + T.tag + '</span></span></div>' +
         '</article>';
