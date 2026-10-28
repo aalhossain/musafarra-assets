@@ -5,7 +5,7 @@
    ========================================================= */
 (function () {
   var ASSETS = 'https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@ef6936f/';
-  var STORY_IMG = 'https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@108adeb/brand/majlis-user.webp';
+  var STORY_IMG = 'https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@4cc0731/brand/majlis-user.webp';
 
   /* ---- نصوص قابلة للتعديل ---- */
   var TXT_AR = {
