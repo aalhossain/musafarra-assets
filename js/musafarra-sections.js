@@ -192,6 +192,12 @@
     return '<div class="mz-grid">' + items + '</div>';
   }
 
+  /* «قهوة مزعفره ( حمسه ثقيل )» ← «حمسه ثقيل» */
+  function shortName(n) {
+    var m = String(n).match(/\(([^)]+)\)/);
+    return (m ? m[1] : n).trim();
+  }
+
   function buildFinder(t, products) {
     var opts = t.tastes.map(function (o) {
       var p = null;
@@ -213,7 +219,7 @@
       rec.style.opacity = '0';
       setTimeout(function () {
         rec.innerHTML = '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy"><div><small>' + esc(t.recommend) + '</small>' +
-          '<h3>' + esc(p.name) + '</h3><p>' + esc(o.why) + '</p>' +
+          '<h3>' + esc(shortName(p.name)) + '</h3><p>' + esc(o.why) + '</p>' +
           (p.price ? '<span class="mz-price">' + esc(p.price) + ' ' + esc(t.currency) + '</span>' : '') +
           '<div class="mz-actions">' +
           (p.oos ? '<a class="mz-btn mz-btn--solid" href="' + esc(p.href) + '">' + esc(t.view) + '</a><span class="mz-oos">' + esc(t.oos) + '</span>'
