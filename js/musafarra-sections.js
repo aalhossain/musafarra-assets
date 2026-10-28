@@ -5,7 +5,7 @@
    ========================================================= */
 (function () {
   var ASSETS = 'https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@ef6936f/';
-  var STORY_IMG = 'https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@1b939bc/brand/majlis-story.webp';
+  var STORY_IMG = 'https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@108adeb/brand/majlis-user.webp';
 
   /* ---- نصوص قابلة للتعديل ---- */
   var TXT_AR = {
@@ -121,10 +121,10 @@
       /* من المجلس إلى فنجانك */
       '#mz-story{margin-top:64px;margin-bottom:64px}' +
       '#mz-story .mz-wrap{background:#F4D7B8;border-radius:32px;padding:clamp(24px,4vw,56px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:center}' +
-      '#mz-story .mz-arch{justify-self:center;width:min(460px,100%);aspect-ratio:460/480;border:2px solid #353B1A;border-radius:230px 230px 0 0;padding:12px}' +
-      '#mz-story .mz-arch-in{width:100%;height:100%;border-radius:218px 218px 0 0;background:radial-gradient(circle at 50% 70%,#5b5a2c 0,#353B1A 55%,#23270F 100%);position:relative;overflow:visible;display:flex;align-items:flex-end;justify-content:center}' +
+      '#mz-story .mz-arch{justify-self:center;width:min(380px,100%);aspect-ratio:380/522;border:2px solid #353B1A;border-radius:190px 190px 0 0;padding:12px}' +
+      '#mz-story .mz-arch-in{width:100%;height:100%;border-radius:176px 176px 0 0;background:radial-gradient(circle at 50% 70%,#5b5a2c 0,#353B1A 55%,#23270F 100%);position:relative;overflow:visible;display:flex;align-items:flex-end;justify-content:center}' +
       '#mz-story .mz-arch-in{overflow:hidden}' +
-      '#mz-story .mz-arch-in img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 40%;display:block}' +
+      '#mz-story .mz-arch-in img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 100%;display:block}' +
       '#mz-story .mz-arch-in::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(201,164,120,.35),inset 0 -60px 60px -40px rgba(35,39,15,.55);pointer-events:none}' +
       '#mz-story .mz-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}' +
       '#mz-story .mz-pillars div{border-top:2px solid #A6592E;padding-top:12px}#mz-story .mz-pillars strong{display:block;font-size:17px}#mz-story .mz-pillars span{font-size:14px;color:#4A4D2C}' +
