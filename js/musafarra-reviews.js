@@ -47,7 +47,7 @@
       '#mz-reviews .mz-rv-text{margin:0 0 22px;font-size:18px;line-height:1.85;font-weight:600;color:#353B1A;flex:1}' +
       '#mz-reviews .mz-rv-rate{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;margin-bottom:22px}' +
       '#mz-reviews .mz-rv-stars--big{margin:0}#mz-reviews .mz-rv-stars--big svg{width:26px;height:26px}' +
-      '#mz-reviews .mz-rv-score{font-size:44px;font-weight:800;line-height:1.1;color:#353B1A}#mz-reviews .mz-rv-score small{font-size:18px;color:#A6592E;font-weight:700}' +
+      '#mz-reviews .mz-rv-score{direction:ltr;font-size:44px;font-weight:800;line-height:1.1;color:#353B1A}#mz-reviews .mz-rv-score small{font-size:18px;color:#A6592E;font-weight:700}' +
       '#mz-reviews .mz-rv-rated{font-size:14px;font-weight:600;color:#4A4D2C}' +
       '#mz-reviews .mz-rv-card--rate{background:#fff}' +
       '#mz-reviews .mz-rv-who{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px dashed rgba(166,89,46,.35)}' +
