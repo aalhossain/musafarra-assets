@@ -124,11 +124,9 @@
       /* زهرة الزعفران من الشعار في الزاوية الفارغة */
       '#mz-story .mz-wrap{position:relative;overflow:hidden}' +
       '#mz-story .mz-wrap>*{position:relative;z-index:1}' +
-      '#mz-story .mz-wrap::before{content:"";position:absolute;z-index:0;top:clamp(20px,3vw,40px);inset-inline-end:clamp(20px,3.5vw,48px);width:clamp(90px,10vw,140px);aspect-ratio:32/29;' +
+      '#mz-story .mz-wrap::before{content:"";position:absolute;z-index:0;top:clamp(20px,3vw,40px);inset-inline-end:clamp(20px,3.5vw,48px);width:clamp(140px,15vw,210px);aspect-ratio:32/29;' +
         'background:#A6592E;opacity:.22;-webkit-mask:url("https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@75e9223/brand/flower-mask.png") center/contain no-repeat;mask:url("https://cdn.jsdelivr.net/gh/aalhossain/musafarra-assets@75e9223/brand/flower-mask.png") center/contain no-repeat;' +
         'transform-origin:50% 90%;animation:mzSway 7s ease-in-out infinite}' +
-      '#mz-story .mz-wrap::after{content:"";position:absolute;z-index:0;top:calc(clamp(20px,3vw,40px) + clamp(90px,10vw,140px) + 10px);inset-inline-end:calc(clamp(20px,3.5vw,48px) + clamp(90px,10vw,140px)/2 - 30px);' +
-        'width:60px;height:14px;background:' + NAJDI + ' repeat-x 0 0/40px 14px;opacity:.5}' +
       '@keyframes mzSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}' +
       '#mz-story .mz-arch{justify-self:center;width:min(380px,100%);aspect-ratio:380/522;border:2px solid #353B1A;border-radius:190px 190px 0 0;padding:12px}' +
       '#mz-story .mz-arch-in{width:100%;height:100%;border-radius:176px 176px 0 0;background:radial-gradient(circle at 50% 70%,#5b5a2c 0,#353B1A 55%,#23270F 100%);position:relative;overflow:visible;display:flex;align-items:flex-end;justify-content:center}' +
@@ -152,7 +150,7 @@
       '#mz-brew h3{margin:0 0 6px;font-size:19px;color:#F4D7B8}#mz-brew p{margin:0;font-size:15px;line-height:1.8;color:#F4D7B8;opacity:.85}' +
       /* الجوال */
       '@media (max-width:1023px){#mz-trust .mz-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#mz-brew .mz-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}' +
-      '@media (max-width:767px){#mz-finder .mz-box,#mz-story .mz-wrap{grid-template-columns:1fr}#mz-story .mz-wrap::before{width:64px;opacity:.16}#mz-story .mz-wrap::after{display:none}' +
+      '@media (max-width:767px){#mz-finder .mz-box,#mz-story .mz-wrap{grid-template-columns:1fr}#mz-story .mz-wrap::before{width:96px;opacity:.16}' +
         '#mz-finder .mz-rec{flex-direction:column;text-align:center}#mz-finder .mz-actions{justify-content:center}' +
         '#mz-trust .mz-item{flex-direction:column;text-align:center;padding:14px 10px}#mz-story .mz-pillars{grid-template-columns:1fr}' +
         '#mz-brew .mz-steps{grid-template-columns:1fr}#mz-brew .mz-seal{display:none}}' +
